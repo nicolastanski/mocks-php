@@ -6,6 +6,7 @@ use Alura\Leilao\Dao\Leilao as LeilaoDao;
 use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Service\Encerrador;
 use Alura\Leilao\Service\EnviadorEmail;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class EncerradorTest extends TestCase
@@ -22,9 +23,6 @@ class EncerradorTest extends TestCase
         $this->leilaoVariant = new Leilao('Variant 1972 0KM', new \DateTimeImmutable('10 days ago'));
 
         $leilaoDao = $this->createMock(LeilaoDao::class);
-        // $leilaoDao = $this->getMockBuilder(LeilaoDao::class)
-        //     ->setConstructorArgs([new \PDO('sqlite::memory:')])
-        //     ->getMock();
         $leilaoDao->method('recuperarNaoFinalizados')
             ->willReturn([$this->leilaoFiat147, $this->leilaoVariant]);
         $leilaoDao->expects($this->exactly(2))
